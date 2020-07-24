@@ -5,6 +5,7 @@ const World = Matter.World;
 const Constraint = Matter.Constraint;
 
 var frame = 0;
+var thunder;
 
 var engine, world;
 
@@ -18,6 +19,9 @@ function setup(){
    world = engine.world;
 
    umbrellaMan = new UmbrellaMan(150, 250);
+
+   thunder = new Thunder();
+   
 }
 
 function draw(){
@@ -25,22 +29,30 @@ function draw(){
 
     Engine.update(engine);
 
-    var maxdrops = 50;
+    var maxdrops = 100;
     for(i = 0; i < maxdrops; i++){
-        drops.push(new Drops(random(0, 400), random(0, 400)));
-        drops[i].x+=5;
-        drops[i].y+=5;
+        drops[i] = (new Drops(random(0, 400), random(0, 400)));
+        drops[i].x+=1;
+        drops[i].y+=1;
         drops[i].display();
         if(drops[i].y > 400 || drops[i].y > 400){
         drops[i].RePosition();
+        console.log("Reposition");
         }
     }
     umbrellaMan.display();
     frame++;
-    if(frame % 50 == 0){
-        var name = round(random(1, 3));
-        var light = loadImage("Thunder"+name+".jpg");
-        image(light, 200, 50, 400, 200);
+    console.log(frame % 10 === 0);
+    
+    if(frame % 10 === 0){
+        /*var numberName = round(random(1, 7));
+        var name = "Thunder"+numberName+".jpg";
+        var light = loadImage(name);
+        image(light, 200, 200, 50, 50);
+        console.log(name);*/
+        
+        //console.log(thunder);
+        thunder.display();
     }
 }
 
